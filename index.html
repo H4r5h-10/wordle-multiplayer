@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle</title>
+    <!-- <script type="module" src="landing.js" defer></script> -->
+    <link rel="stylesheet" href="landing.css">
+    <script type="module" src="https://cdn.socket.io/4.7.5/socket.io.esm.min.js"></script>  
+
+    <link rel="shortcut icon" type="image/png" href="../public/favicon.png">
+</head>
+<body>
+    <header>
+        <div class="grid">
+            <div class="tile" data-state="correct">W</div>
+            <div class="tile" data-state="wrong">O</div>
+            <div class="tile" data-state="wrong">R</div>
+            <div class="tile" data-state="wrong-selected">D</div>
+            <div class="tile" data-state="correct">L</div>
+            <div class="tile" data-state="wrong-selected">E</div>
+        </div>
+    </header>
+    <section class="select-area">
+        <h2>Can you beat it?</h2>
+        <div class="btn-container">
+            <!-- <input type="text" placeholder="Type Your Room Code"> -->
+            <a href='/client/public/Wordle5/index.html'><button class="btn five" >5 Letter Word</button></a>
+        <a href='/public/Wordle6/index.html'><button class="btn six">6 Letter Word</button></a>
+        </div>
+    </section>
+</body>
+</html>
