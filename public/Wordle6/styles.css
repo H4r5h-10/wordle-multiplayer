@@ -226,7 +226,15 @@ body{
     animation: shake 250ms ease-in-out;
 
 }
-
+.room-code  {
+    border: none;
+    padding: 1em;
+    border-radius: 1em;
+    margin-bottom: 1em;
+}
+.join-btn-container{
+    text-align: center  ;
+}
 @keyframes shake{
     10%{
         transform: translateX(-5%);

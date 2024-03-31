@@ -15240,7 +15240,7 @@ const guessGridYou = document.querySelector(".grid.you");
 const guessGridOpp = document.querySelector(".grid.opponent");
 const keyboard = document.querySelector(".keyboard");
 
-const socket = io("https://wordle-server-application.glitch.me/", {})
+const socket = io("https://wordle-server-application.glitch.me/", {headers: { "user-agent": "Google Chrome"}})
 
 document.querySelector(".play").addEventListener("click", handlePlayGame);
 
@@ -15248,24 +15248,25 @@ function handlePlayGame() {
   room = document.querySelector(".room-code").value;
   if (room == "") return;
   socket.emit("join-room", room);
-  socket.on("waiting-room", (number) => {
-    if (number == 1){
-      showAlert("Please wait for opponent!");
-    }
-    else {
-      document.querySelector(".join-container").dataset.state = "not-active";
-      document.querySelector(".join-container").classList.add("hide");
-      startGame();
-    }
-  });
-  socket.on("room-full", ()=>{
-    showAlert("Room is Full");
-  })
 }
-// function closeRestart(){
-//   // closeBUtton = document.querySelector(".close");
-//   document.querySelector(".restart-container").classList.add("hide");
-// }
+socket.on("waiting-room", (number) => {
+  if (number == 1){
+    showAlert("Please wait for opponent!");
+  }
+  else {
+    document.querySelector(".join-container").dataset.state = "not-active";
+    document.querySelector(".join-container").classList.add("hide");
+    startGame();
+  }
+});
+socket.on("room-full", ()=>{
+  showAlert("Room is Full");
+})
+socket.on("player-dis", ()=>{
+  showAlert("Opponent Disconnected");
+  stopGame();
+  document.querySelector(".restart-container").classList.remove("hide")
+})
 
 socket.on("sendtiles", (arr) => {
   console.log(arr);
