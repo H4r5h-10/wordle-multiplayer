@@ -12977,6 +12977,7 @@ const dictionary = [
 var room = "";
 var arr = [];
 var correctWord = "";
+require('dotenv').config();
 const guessGridYou = document.querySelector(".grid.you");
 const guessGridOpp = document.querySelector(".grid.opponent");
 const keyboard = document.querySelector(".keyboard");
