@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
+=======
+import { io } from "socket.io-client";
+>>>>>>> f6ee0a3d78008431f8bc4ba9f59a5f5272f95c78
 const dictionary = [
   "aahing",
   "aaliis",
