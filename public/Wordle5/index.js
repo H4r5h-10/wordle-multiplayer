@@ -12982,7 +12982,8 @@ const guessGridOpp = document.querySelector(".grid.opponent");
 const keyboard = document.querySelector(".keyboard");
 const socket = io("https://wordle-server-application.glitch.me/", {headers: { "user-agent": "Google Chrome"}})
 
-document.querySelector(".play").addEventListener("click", handlePlayGame);
+var roomBtn = document.querySelector(".play");
+roomBtn.addEventListener("click", handlePlayGame);
 
 function handlePlayGame() {
   room = document.querySelector(".room-code").value.toLowerCase();
@@ -13056,7 +13057,7 @@ function handleKeyDown(event) {
     setTimeout(() => keyboard.querySelector(`[data-delete]`).blur(), 300);
     deleteTile();
   }
-  if (event.key.match(/^[a-z]$/)) {
+  if (event.key.match(/^[a-z]$/) || event.key.match(/^[A-Z]^/)) {
     keyboard.querySelector(`[data-key = ${event.key.toUpperCase()}]`).focus();
     setTimeout(
       () =>

@@ -15316,7 +15316,7 @@ function handleKeyDown(event) {
     setTimeout(() => keyboard.querySelector(`[data-delete]`).blur(), 300);
     deleteTile();
   }
-  if (event.key.match(/^[a-z]$/)) {
+  if (event.key.match(/^[a-z]$/) || event.key.match(/^[A-Z]^/)) {
     keyboard.querySelector(`[data-key = ${event.key.toUpperCase()}]`).focus();
     setTimeout(
       () =>

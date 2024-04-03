@@ -292,6 +292,10 @@ body{
         grid-template-columns: repeat(5, 5em);
     grid-template-rows: repeat(6, 5em);
     }
+    .grid.opponent{
+        grid-template-columns: repeat(5, 3em);
+        grid-template-rows: repeat(6, 3em);
+    }
     .keyboard{
         grid-auto-rows: 5em;
         font-size: 1.2em;
