@@ -226,11 +226,13 @@ body{
     animation: shake 250ms ease-in-out;
 
 }
-.room-code  {
+.room-code {
     border: none;
     padding: 1em;
+    width: 15em;
     border-radius: 1em;
     margin-bottom: 1em;
+    font-size: 1em;
 }
 .join-btn-container{
     text-align: center  ;

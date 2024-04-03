@@ -15245,7 +15245,7 @@ const socket = io("https://wordle-server-application.glitch.me/", {headers: { "u
 document.querySelector(".play").addEventListener("click", handlePlayGame);
 
 function handlePlayGame() {
-  room = document.querySelector(".room-code").value;
+  room = document.querySelector(".room-code").value.toLowerCase();
   if (room == "") return;
   socket.emit("join-room-six", room);
 }
@@ -15260,7 +15260,7 @@ socket.on("waiting-room", (number) => {
   }
 });
 socket.on("room-full", ()=>{
-  showAlert("Room is Full");
+  showAlert("Room in Use");
 })
 socket.on("player-dis", ()=>{
   showAlert("Opponent Disconnected");
