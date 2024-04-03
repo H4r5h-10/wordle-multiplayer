@@ -1,3 +1,4 @@
+import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
 const dictionary = [
   "aahed",
   "aalii",
@@ -15289,7 +15290,6 @@ const targetWord = [
   "rural",
   "shave"
 ];
-import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
 
 var room = "";
 var arr = [];
