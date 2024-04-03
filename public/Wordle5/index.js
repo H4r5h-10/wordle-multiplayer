@@ -15304,7 +15304,7 @@ document.querySelector(".play").addEventListener("click", handlePlayGame);
 function handlePlayGame() {
   room = document.querySelector(".room-code").value;
   if (room == "") return;
-  socket.emit("join-room", room);
+  socket.emit("join-room-five", room);
 }
 socket.on("waiting-room", (number) => {
   if (number == 1){
