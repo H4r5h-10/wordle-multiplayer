@@ -12985,7 +12985,12 @@ const socket = io(SERVER_ADDRESS, {headers: { "user-agent": "Google Chrome"}})
 
 var roomBtn = document.querySelector(".play");
 roomBtn.addEventListener("click", handlePlayGame);
-
+document.querySelector(".room-code").addEventListener("keydown", handleRoomEnter);
+function handleRoomEnter(event) {
+  if(event.key != 'Enter') return ;
+  document.querySelector(".play").click();
+  document.querySelector(".room-code").blur();
+}
 function handlePlayGame() {
   room = document.querySelector(".room-code").value.toLowerCase();
   if (room == "") return;

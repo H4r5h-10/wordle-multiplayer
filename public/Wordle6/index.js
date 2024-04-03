@@ -15244,9 +15244,16 @@ const keyboard = document.querySelector(".keyboard");
 
 const socket = io(SERVER_ADDRESS, {headers: { "user-agent": "Google Chrome"}})
 
-document.querySelector(".play").addEventListener("click", handlePlayGame);
+document.querySelector(".play").addEventListener("click", handleRoomClick);
+document.querySelector(".room-code").addEventListener("keydown", handleRoomEnter);
 
-function handlePlayGame() {
+
+function handleRoomEnter(event) {
+  if(event.key != 'Enter') return ;
+  document.querySelector(".play").click();
+  document.querySelector(".room-code").blur();
+}
+function handleRoomClick() {
   room = document.querySelector(".room-code").value.toLowerCase();
   if (room == "") return;
   socket.emit("join-room-six", room);
