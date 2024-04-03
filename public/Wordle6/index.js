@@ -1,5 +1,5 @@
 import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
-// import dotenv from "dotenv";
+import SERVER_ADDRESS from '../../apiKey.js'
 const dictionary = [
   "aahing",
   "aaliis",
@@ -15242,7 +15242,7 @@ const guessGridYou = document.querySelector(".grid.you");
 const guessGridOpp = document.querySelector(".grid.opponent");
 const keyboard = document.querySelector(".keyboard");
 
-const socket = io("https://wordle-server-application.glitch.me/", {headers: { "user-agent": "Google Chrome"}})
+const socket = io(SERVER_ADDRESS, {headers: { "user-agent": "Google Chrome"}})
 
 document.querySelector(".play").addEventListener("click", handlePlayGame);
 
