@@ -1,4 +1,5 @@
 import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
+import dotenv from "dotenv";
 const dictionary = [
   "aahing",
   "aaliis",
@@ -15236,7 +15237,7 @@ const dictionary = [
 var room = "";
 var arr = [];
 var correctWord = "";
-require('dotenv').config();
+dotenv.config();
 const guessGridYou = document.querySelector(".grid.you");
 const guessGridOpp = document.querySelector(".grid.opponent");
 const keyboard = document.querySelector(".keyboard");
