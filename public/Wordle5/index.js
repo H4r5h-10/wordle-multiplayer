@@ -15289,19 +15289,58 @@ const targetWord = [
   "rural",
   "shave"
 ];
-const index = Math.floor(Math.random() * targetWord.length);
-const correctWord = targetWord[index];
-var arr=[];
-const guessGrid = document.querySelector(".grid");
-const keyboard = document.querySelector(".keyboard");
+import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
 
+var room = "";
+var arr = [];
+var correctWord = "";
+const guessGridYou = document.querySelector(".grid.you");
+const guessGridOpp = document.querySelector(".grid.opponent");
+const keyboard = document.querySelector(".keyboard");
+const socket = io("https://wordle-server-application.glitch.me/", {headers: { "user-agent": "Google Chrome"}})
+
+document.querySelector(".play").addEventListener("click", handlePlayGame);
+
+function handlePlayGame() {
+  room = document.querySelector(".room-code").value;
+  if (room == "") return;
+  socket.emit("join-room", room);
+}
+socket.on("waiting-room", (number) => {
+  if (number == 1){
+    showAlert("Please wait for opponent!");
+  }
+  else {
+    document.querySelector(".join-container").dataset.state = "not-active";
+    document.querySelector(".join-container").classList.add("hide");
+    startGame();
+  }
+});
+socket.on("room-full", ()=>{
+  showAlert("Room is Full");
+})
+socket.on("player-dis", ()=>{
+  showAlert("Opponent Disconnected");
+  stopGame();
+  document.querySelector(".restart-container").classList.remove("hide")
+})
+
+socket.on("sendtiles", (arr) => {
+  console.log(arr);
+  for (var i = 0; i < 5; i++) {
+    var currTile = guessGridOpp.querySelector(":not([data-state])");
+    currTile.dataset.state = arr[i];
+  }
+});
+
+socket.on("sendword", (word) => {
+  correctWord = word;
+});
 
 function startGame() {
   document.addEventListener("keydown", handleKeyDown);
   document.addEventListener("click", handleClick);
 }
-
-startGame();
 
 function stopGame() {
   document.removeEventListener("keydown", handleKeyDown);
@@ -15331,12 +15370,18 @@ function handleKeyDown(event) {
   }
   if (event.key == "Delete" || event.key == "Backspace") {
     keyboard.querySelector(`[data-delete]`).focus();
-    setTimeout(()=>keyboard.querySelector(`[data-delete]`).blur(),300);
+    setTimeout(() => keyboard.querySelector(`[data-delete]`).blur(), 300);
     deleteTile();
   }
   if (event.key.match(/^[a-z]$/)) {
     keyboard.querySelector(`[data-key = ${event.key.toUpperCase()}]`).focus();
-    setTimeout(()=> keyboard.querySelector(`[data-key = ${event.key.toUpperCase()}]`).blur(),300);
+    setTimeout(
+      () =>
+        keyboard
+          .querySelector(`[data-key = ${event.key.toUpperCase()}]`)
+          .blur(),
+      300
+    );
     pressKey(event.key);
     return;
   }
@@ -15344,17 +15389,17 @@ function handleKeyDown(event) {
 
 function pressKey(key) {
   // console.log(key);
-  checkTiles = getActiveTiles();
+  var checkTiles = getActiveTiles();
   if (checkTiles.length >= 5) return;
-  const currTile = guessGrid.querySelector(":not([data-letter])");
+  const currTile = guessGridYou.querySelector(":not([data-letter])");
   currTile.dataset.letter = key.toLowerCase();
   currTile.textContent = key.toUpperCase();
   currTile.dataset.state = "active";
 }
 
 function deleteTile() {
-  checkTile = getActiveTiles();
-  opTile = checkTile[checkTile.length - 1];
+  var checkTile = getActiveTiles();
+  var opTile = checkTile[checkTile.length - 1];
   if (opTile == null) return;
   opTile.textContent = "";
   delete opTile.dataset.state;
@@ -15362,8 +15407,8 @@ function deleteTile() {
 }
 
 function submitGuess() {
-  checkTiles = [...getActiveTiles()];
-  word = "";
+  var checkTiles = [...getActiveTiles()];
+  var word = "";
   checkTiles.forEach((element) => {
     word += element.dataset.letter.toLowerCase();
   });
@@ -15378,43 +15423,41 @@ function submitGuess() {
     return;
   }
   stopGame();
-  colorTile();
+  colorTile(word);
   checkTiles.forEach((...params) => flipTiles(...params, word));
-    // arr=[];
+  // arr=[];
 }
 
-function replaceAt(index,rep, str){
-  return str.substring(0,index)+rep+str.substring(index+1);
+function replaceAt(index, rep, str) {
+  return str.substring(0, index) + rep + str.substring(index + 1);
 }
-function closeRestart(){
-  // closeBUtton = document.querySelector(".close");
-  document.querySelector(".restart-container").classList.add("hide");
-}
-function colorTile(){
-  temp = correctWord;
-  for(i = 0; i < 5;  i++)
+
+function colorTile(word) {
+  var temp = correctWord;
+  for(var i = 0; i < 5;  i++)
   {
     if(temp[i] == word[i]){
       arr[i] = "correct"
       temp = replaceAt(i,'$',temp);
     }
   }
-  for(i = 0; i < 5;  i++)
+  for(var i = 0; i < 5;  i++)
   {
     if(!arr[i] && temp.includes(word[i])){
-      currIndex = temp.indexOf(word[i]);
+      var currIndex = temp.indexOf(word[i]);
       arr[i] = "wrong-selected"
       temp = replaceAt(currIndex,'$',temp);
     }
   }
-  for(i = 0; i < 5; i++)
+  for(var i = 0; i < 5; i++)
   {
     if(!arr[i]) arr[i] = "wrong";
   }
+  socket.emit("submitguess", arr, room);
 }
 
 function flipTiles(tile, index, array, word) {
-    const letter = tile.dataset.letter;
+  const letter = tile.dataset.letter;
   const key = keyboard.querySelector(`[data-key = "${letter}"i]`);
 
   setTimeout(() => {
@@ -15422,48 +15465,57 @@ function flipTiles(tile, index, array, word) {
   }, (index * 500) / 2);
 
   tile.addEventListener("transitionend", () => {
-    tile.classList.remove("flip"); 
-    color = arr[index];
+    tile.classList.remove("flip");
+    var color = arr[index];
     tile.dataset.state = color;
     key.classList.add(color);
-
-
-      if (index === array.length - 1) {
-        tile.addEventListener(
-          "transitionend",
-          () => {
-            arr = [];
-            startGame();
-            checkWinLose(tile, word, array);
-          },
-          { once: true }
-        );
-      }
-    });
+    if (index === array.length - 1) {
+      tile.addEventListener(
+        "transitionend",
+        () => {
+          arr = [];
+          startGame();
+          checkWinLose(tile, word, array);
+        },
+        { once: true }
+      );
+    }
+  });
 }
-
+socket.on("shut-down", () =>{
+  showAlert(`You Lose! Correct Word: ${correctWord.toUpperCase()}`,2000);
+  document.querySelector(".restart-container").classList.remove("hide");
+  stopGame();
+})
+socket.on("exhaust-out", () =>{
+  showAlert(`You Win! Correct Word: ${correctWord.toUpperCase()}`,2000);
+  document.querySelector(".restart-container").classList.remove("hide");
+  stopGame();
+})
 function checkWinLose(tile, word, tiles) {
   if (word == correctWord) {
     showAlert("You win", 5000);
     danceTiles(tiles);
+    socket.emit("socket-win", socket.id, room)
     stopGame();
     tile.addEventListener("animationend",()=>document.querySelector(".restart-container").classList.remove("hide"));
     return;
   }
-  remaining = guessGrid.querySelector(":not([data-letter])");
+  const remaining = guessGridYou.querySelector(":not([data-letter])");
   if (remaining == null) {
     showAlert(`The correct word is: ${correctWord.toUpperCase()}`, 10000);
-    document.querySelector(".restart-container").classList.remove("hide");
     stopGame();
+    document.querySelector(".restart-container").classList.remove("hide");
+    socket.emit("socket-exhaust", socket.id, room)
   }
 }
 
 function getActiveTiles() {
-  return guessGrid.querySelectorAll('[data-state="active"]');
+  return guessGridYou.querySelectorAll('[data-state="active"]');
 }
 
 function showAlert(message, duration = 1000) {
-  alertCon = document.querySelector("[data-alert-con]");
+  var alertCon = document.querySelector("[data-alert-con]");
   const alert = document.createElement("div");
   alert.textContent = message;
   alert.classList.add("alert");
@@ -15471,7 +15523,7 @@ function showAlert(message, duration = 1000) {
   setTimeout(() => {
     alert.classList.add("alert-hide");
     alert.addEventListener("transitionend", () => {
-      alert.remove;
+      alert.remove()
     });
   }, duration);
 }

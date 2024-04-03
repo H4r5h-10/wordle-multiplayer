@@ -3,13 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wordle Singleplayer</title>
+    <title>Wordle Multiplayer</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="index.js" defer></script>
+    <script type="module" src="index.js" defer></script>
     <link rel="shortcut icon" type="image/png" href="../favicon.png">
   </head>
   <body>
-    <div class="alert-container" data-alert-con></div>
     <div class="restart-container hide" data-restart-con>
       <div class="btn-container">
         <button class="btn" onclick="window.location.reload()">New Game</button>
@@ -17,7 +16,17 @@
       <button class="btn close" onclick="closeRestart()">Close</button>
       </div>
     </div>
-      <div class="grid">
+    <div class="join-container">
+      <div class="join-btn-container">
+        <input type="text" class="room-code" placeholder="Enter Room Name">
+        <button class="btn play">Play Game</button>
+      </div>
+    </div>
+    <div class="alert-container" data-alert-con></div>
+    <div class="grid-container">
+      <div class="grid-title you">
+        You
+      <div class="grid you">
         <div class="tile"></div>
         <div class="tile"></div>
         <div class="tile"></div>
@@ -49,6 +58,43 @@
         <div class="tile"></div>
         <div class="tile"></div>
       </div>
+      </div>
+      <div class="grid-title opponent">
+        Opponent
+      <div class="grid opponent">
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+      </div>
+      </div>
+    </div>
     <div class="key-container">
       <div class="keyboard">
         <button class="key" data-key="Q">Q</button>
