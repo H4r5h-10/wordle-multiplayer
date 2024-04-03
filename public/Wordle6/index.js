@@ -15249,36 +15249,10 @@ function handlePlayGame() {
   if (room == "") return;
   socket.emit("join-room-six", room);
 }
-socket.on("waiting-room", (number) => {
-  if (number == 1){
-    showAlert("Please wait for opponent!");
-  }
-  else {
-    document.querySelector(".join-container").dataset.state = "not-active";
-    document.querySelector(".join-container").classList.add("hide");
-    startGame();
-  }
-});
-socket.on("room-full", ()=>{
-  showAlert("Room in Use");
-})
-socket.on("player-dis", ()=>{
-  showAlert("Opponent Disconnected");
-  stopGame();
-  document.querySelector(".restart-container").classList.remove("hide")
-})
-
-socket.on("sendtiles", (arr) => {
-  console.log(arr);
-  for (var i = 0; i < 6; i++) {
-    var currTile = guessGridOpp.querySelector(":not([data-state])");
-    currTile.dataset.state = arr[i];
-  }
-});
-
-socket.on("sendword", (word) => {
-  correctWord = word;
-});
+function closeRestart(){
+  // closeBUtton = document.querySelector(".close");
+  document.querySelector(".restart-container").classList.add("hide");
+}
 
 function startGame() {
   document.addEventListener("keydown", handleKeyDown);
@@ -15425,16 +15399,7 @@ function flipTiles(tile, index, array, word) {
     }
   });
 }
-socket.on("shut-down", () =>{
-  showAlert(`You Lose! Correct Word: ${correctWord.toUpperCase()}`,2000);
-  document.querySelector(".restart-container").classList.remove("hide");
-  stopGame();
-})
-socket.on("exhaust-out", () =>{
-  showAlert(`You Win! Correct Word: ${correctWord.toUpperCase()}`,2000);
-  document.querySelector(".restart-container").classList.remove("hide");
-  stopGame();
-})
+
 function checkWinLose(tile, word, tiles) {
   if (word == correctWord) {
     showAlert("You win", 5000);
@@ -15498,3 +15463,50 @@ function danceTiles(array) {
     }, (index * 500) / 5);
   });
 }
+
+
+/*************************SOCKET EVENTS*********************************/
+
+
+socket.on("waiting-room", (number) => {
+  if (number == 1){
+    showAlert("Please wait for opponent!");
+  }
+  else {
+    document.querySelector(".join-container").dataset.state = "not-active";
+    document.querySelector(".join-container").classList.add("hide");
+    startGame();
+  }
+});
+socket.on("room-full", ()=>{
+  showAlert("Room in Use");
+})
+socket.on("player-dis", ()=>{
+  showAlert("Opponent Disconnected");
+  stopGame();
+  document.querySelector(".restart-container").classList.remove("hide")
+})
+
+socket.on("sendtiles", (arr) => {
+  console.log(arr);
+  for (var i = 0; i < 6; i++) {
+    var currTile = guessGridOpp.querySelector(":not([data-state])");
+    currTile.dataset.state = arr[i];
+  }
+});
+
+socket.on("sendword", (word) => {
+  correctWord = word;
+});
+
+socket.on("shut-down", () =>{
+  showAlert(`You Lose! Correct Word: ${correctWord.toUpperCase()}`,2000);
+  document.querySelector(".restart-container").classList.remove("hide");
+  stopGame();
+})
+socket.on("exhaust-out", () =>{
+  showAlert(`You Win! Correct Word: ${correctWord.toUpperCase()}`,2000);
+  document.querySelector(".restart-container").classList.remove("hide");
+  stopGame();
+})
+
