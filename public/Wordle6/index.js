@@ -15284,14 +15284,14 @@ function handleCreateRoomEnter(event) {
 function handlePlayGameJoin() {
   room = document.querySelector(".room-code-join").value.toLowerCase();
   if (room == "") return;
-  socket.emit("join-room-five", room);
+  socket.emit("join-room-six", room);
 }
 function handlePlayGameCreate() {
   room = document.querySelector(".room-code-create").value.toLowerCase();
   if (room == "") return;
   whatsappBtn.classList.remove("hide");
   shareBtn.classList.add("hide");
-  socket.emit("join-room-five", room);
+  socket.emit("join-room-six", room);
 }
 function closeRestart(){
   document.querySelector(".restart-container").classList.add("hide");
@@ -15508,7 +15508,7 @@ function danceTiles(array) {
         },
         { once: true }
       );
-    }, (index * 500) / 5);
+    }, (index * 600) / 6);
   });
 }
 
