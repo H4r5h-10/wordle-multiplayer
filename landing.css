@@ -28,6 +28,10 @@ header{
     font-size: var(--fontsize);
     transform: translateX(-50%);
     position: fixed;
+    h2{
+        font-size: 1em;
+        text-align: center;
+    }
 }
 a{
     text-decoration: none;
