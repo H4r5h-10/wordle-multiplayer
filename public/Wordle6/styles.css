@@ -215,6 +215,8 @@ body{
     padding: 0.8em;
     border-radius: 0.8em;
     opacity: 1;
+    text-align: center;
+    justify-content: center;
     transition: opacity 500ms ease-in-out;
     user-select: none;
 }

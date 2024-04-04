@@ -15518,4 +15518,9 @@ socket.on("exhaust-out", () =>{
   document.querySelector(".restart-container").classList.remove("hide");
   stopGame();
 })
+socket.on("opp-dis", () =>{
+  showAlert(`Opponent Disconnected! Correct Word: ${correctWord.toUpperCase()}`,2000);
+  document.querySelector(".restart-container").classList.remove("hide");
+  stopGame();
 
+})
