@@ -15241,26 +15241,65 @@ var correctWord = "";
 const guessGridYou = document.querySelector(".grid.you");
 const guessGridOpp = document.querySelector(".grid.opponent");
 const keyboard = document.querySelector(".keyboard");
-
 const socket = io(SERVER_ADDRESS, {headers: { "user-agent": "Google Chrome"}})
 
-document.querySelector(".play").addEventListener("click", handleRoomClick);
-document.querySelector(".room-code").addEventListener("keydown", handleRoomEnter);
 
+var roomBtn = document.querySelector(".play");
+var joinBtn = document.querySelector(".join");
+var createBtn = document.querySelector(".create");
+var shareBtn = document.querySelector(".share");
+var closeBtn = document.querySelector(".close");
+var whatsappBtn = document.querySelector(".whatsapp");
+var emailBtn = document.querySelector(".email");
 
-function handleRoomEnter(event) {
-  if(event.key != 'Enter') return ;
-  document.querySelector(".play").click();
-  document.querySelector(".room-code").blur();
+shareBtn.addEventListener("click", handlePlayGameCreate);
+roomBtn.addEventListener("click", handlePlayGameJoin);
+joinBtn.addEventListener("click", handleJoinRoom);
+createBtn.addEventListener("click", handleCreateRoom);
+closeBtn.addEventListener("click", closeRestart);
+whatsappBtn.addEventListener("click", shareWhatsapp);
+// emailBtn.addEventListener("click", shareEmail);
+
+document.querySelector(".room-code-join").addEventListener("keydown", handleJoinRoomEnter);
+document.querySelector(".room-code-create").addEventListener("keydown", handleCreateRoomEnter);
+
+function handleJoinRoom(){
+  document.querySelector(".option-btn-container").classList.add("hide");
+  document.querySelector(".join-btn-container").classList.remove("hide");
 }
-function handleRoomClick() {
-  room = document.querySelector(".room-code").value.toLowerCase();
+function handleCreateRoom(){
+  document.querySelector(".option-btn-container").classList.add("hide");
+  document.querySelector(".join-btn-container-create").classList.remove("hide");
+
+}
+function handleJoinRoomEnter(event) {
+  if(event.key != 'Enter') return ;
+  roomBtn.click();
+}
+function handleCreateRoomEnter(event) {
+  if(event.key != 'Enter') return ;
+  shareBtn.click();
+  document.querySelector(".room-code-create").blur();
+}
+function handlePlayGameJoin() {
+  room = document.querySelector(".room-code-join").value.toLowerCase();
   if (room == "") return;
-  socket.emit("join-room-six", room);
+  socket.emit("join-room-five", room);
+}
+function handlePlayGameCreate() {
+  room = document.querySelector(".room-code-create").value.toLowerCase();
+  if (room == "") return;
+  whatsappBtn.classList.remove("hide");
+  shareBtn.classList.add("hide");
+  socket.emit("join-room-five", room);
 }
 function closeRestart(){
-  // closeBUtton = document.querySelector(".close");
   document.querySelector(".restart-container").classList.add("hide");
+}
+function shareWhatsapp(){
+  var message = encodeURIComponent("I challenge you to a match in Wordle!\nLink: https://wordle-multiplayer.netlify.app/public/Wordle6/ \nRoom Code: " + room);
+  var whatsappURL = `https://wa.me/?text=${message}`;
+  window.open(whatsappURL, '_blank');
 }
 
 function startGame() {
@@ -15473,14 +15512,15 @@ function danceTiles(array) {
   });
 }
 
-
+var count = 0;
 /*************************SOCKET EVENTS*********************************/
 
 
 socket.on("waiting-room", (number) => {
-  if (number == 1){
-    showAlert("Please wait for opponent!");
+  if (number == 1 && count == 0){
+    showAlert("Room Created! Share The Code");count++;
   }
+  else if(number == 1 && count != 0)showAlert("Please wait for opponent!");
   else {
     document.querySelector(".join-container").dataset.state = "not-active";
     document.querySelector(".join-container").classList.add("hide");

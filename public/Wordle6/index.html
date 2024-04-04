@@ -14,13 +14,23 @@
       <div class="btn-container">
         <button class="btn" onclick="window.location.reload()">New Game</button>
         <a href="../../index.html"><button class="btn">Menu</button></a>
-      <button class="btn close" onclick="closeRestart()">Close</button>
+      <button class="btn close">Close</button>
       </div>
     </div>
     <div class="join-container">
-      <div class="join-btn-container">
-        <input type="text" class="room-code" placeholder="Enter Room Name">
-        <button class="btn play">Play Game</button>
+      <div class="option-btn-container">
+        <!-- <input type="text" class="room-code" placeholder="Enter Room Name"> -->
+        <button class="btn create" >Create Room</button>
+        <button class="btn join" >Join Room</button>
+      </div>
+      <div class="join-btn-container hide">
+        <input type="text" class="room-code-join" placeholder="Enter Room Name">
+        <button class="btn play" >Play Game</button>
+      </div>
+      <div class="join-btn-container-create hide">
+        <input type="text" class="room-code-create" placeholder="Enter Room Name">
+        <button class="btn share">Create Room</button>
+        <button class="whatsapp hide"><span class="whatsapp-icon"></span></button>
       </div>
     </div>
     <div class="alert-container" data-alert-con></div>

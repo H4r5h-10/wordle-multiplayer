@@ -104,6 +104,32 @@ body{
 .join-container.hide{
     display: none;
 }
+.join-btn-container.hide{
+    display: none;
+}
+.join-btn-container-create{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.whatsapp.hide{
+    display: none;
+}
+.whatsapp{
+    border: none;
+    background: none;
+    
+}
+.btn.share.hide{
+    display: none;
+}
+.join-btn-container-create.hide
+{ 
+    display: none;
+}
+.option-btn-container.hide{
+    display: none;
+}
 .restart-container{
     z-index: 1;
     color: black;
@@ -179,6 +205,14 @@ body{
     border: none;
     background-color: hsl(40,51%,47%);
 }
+.whatsapp-icon {
+    width: 2em;
+    height: 2em;
+    background: url('whatsapp_icon.png') no-repeat;
+    background-size: cover;
+    display: inline-block;
+    cursor: pointer;
+  }
 .new-game{
     border: none;
     padding: 0.5em;
@@ -228,7 +262,15 @@ body{
     animation: shake 250ms ease-in-out;
 
 }
-.room-code {
+.room-code-create {
+    border: none;
+    padding: 1em;
+    width: 15em;
+    border-radius: 1em;
+    margin-bottom: 1em;
+    font-size: 1em;
+}
+.room-code-join {
     border: none;
     padding: 1em;
     width: 15em;
@@ -237,6 +279,9 @@ body{
     font-size: 1em;
 }
 .join-btn-container{
+    text-align: center  ;
+}
+.option-btn-container{
     text-align: center  ;
 }
 @keyframes shake{
