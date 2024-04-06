@@ -15265,7 +15265,7 @@ document.querySelector(".room-code-join").addEventListener("keydown", handleJoin
 document.querySelector(".room-code-create").addEventListener("keydown", handleCreateRoomEnter);
 
 if(joinRoomCode){
-  socket.emit("join-room-five",joinRoomCode.toLowerCase());
+  socket.emit("join-room-six",joinRoomCode.toLowerCase());
 }
 
 function handleJoinRoom(){
@@ -15302,7 +15302,7 @@ function closeRestart(){
   document.querySelector(".restart-container").classList.add("hide");
 }
 function shareWhatsapp(){
-  var message = encodeURIComponent(`I challenge you to a match in Wordle!\nLink: https://wordle-multiplayer.netlify.app/public/Wordle5?room=${room}`);
+  var message = encodeURIComponent(`I challenge you to a match in Wordle!\nLink: https://wordle-multiplayer.netlify.app/public/Wordle6?room=${room}`);
   var whatsappURL = `https://wa.me/?text=${message}`;
   window.open(whatsappURL, '_blank');
 }
