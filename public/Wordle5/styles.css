@@ -109,16 +109,39 @@ body{
 }
 .join-btn-container-create{
     text-align: center;
+    align-items: center;
     display: flex;
     flex-direction: column;
 }
-.whatsapp.hide{
-    display: none;
+.sharebuttons.hide{
+    display:none;
 }
-.whatsapp{
+.sharebuttons{
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+    align-items: center;
+}
+.icons{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+}
+.fa-whatsapp{
     border: none;
     background: none;
-    
+    cursor: pointer;
+}
+.fa-instagram{
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.gamelink{
+    font-size: 1em;
+}
+.gamelink:focus{
+    outline:none;
 }
 .btn.share.hide{
     display: none;
@@ -205,14 +228,14 @@ body{
     border: none;
     background-color: hsl(40,51%,47%);
 }
-.whatsapp-icon {
+/* .whatsapp-icon {
     width: 2em;
     height: 2em;
     background: url('whatsapp_icon.png') no-repeat;
     background-size: cover;
     display: inline-block;
     cursor: pointer;
-  }
+  } */
 .new-game{
     border: none;
     padding: 0.5em;

@@ -137,23 +137,38 @@ body{
     text-align: center;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
-.whatsapp.hide{
-    display: none;
+.sharebuttons.hide{
+    display:none;
 }
-.whatsapp{
+.sharebuttons{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+}
+.icons{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+}
+.fa-whatsapp{
     border: none;
     background: none;
-    
-}
-.whatsapp-icon {
-    width: 2em;
-    height: 2em;
-    background: url('whatsapp_icon.png') no-repeat;
-    background-size: cover;
-    display: inline-block;
     cursor: pointer;
-  }
+}
+.fa-instagram{
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.gamelink{
+    font-size: 1em;
+}
+.gamelink:focus{
+    outline:none;
+}
 .btn.share.hide{
     display: none;
 }

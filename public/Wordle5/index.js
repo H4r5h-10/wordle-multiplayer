@@ -12990,8 +12990,9 @@ var joinBtn = document.querySelector(".join");
 var createBtn = document.querySelector(".create");
 var shareBtn = document.querySelector(".share");
 var closeBtn = document.querySelector(".close");
-var whatsappBtn = document.querySelector(".whatsapp");
-var emailBtn = document.querySelector(".email");
+var whatsappBtn = document.querySelector(".fa-whatsapp");
+var instagramBtn = document.querySelector(".fa-instagram");
+var gameLinkInput = document.querySelector(".gamelink");
 
 shareBtn.addEventListener("click", handlePlayGameCreate);
 roomBtn.addEventListener("click", handlePlayGameJoin);
@@ -12999,6 +13000,8 @@ joinBtn.addEventListener("click", handleJoinRoom);
 createBtn.addEventListener("click", handleCreateRoom);
 closeBtn.addEventListener("click", closeRestart);
 whatsappBtn.addEventListener("click", shareWhatsapp);
+instagramBtn.addEventListener("click", shareInstagram);
+gameLinkInput.addEventListener("click", copyClipboard);
 // emailBtn.addEventListener("click", shareEmail);
 
 document.querySelector(".room-code-join").addEventListener("keydown", handleJoinRoomEnter);
@@ -13034,17 +13037,28 @@ function handlePlayGameJoin() {
 function handlePlayGameCreate() {
   room = document.querySelector(".room-code-create").value.toLowerCase();
   if (room == "") return;
-  whatsappBtn.classList.remove("hide");
+  gameLinkInput.setAttribute('value',`https://wordle-multiplayer.netlify.app/public/Wordle5?room=${room}`);
+  document.querySelector(".sharebuttons").classList.remove("hide");
   shareBtn.classList.add("hide");
   socket.emit("join-room-five", room);
 }
 function closeRestart(){
   document.querySelector(".restart-container").classList.add("hide");
 }
+function copyClipboard(){
+  var gameLink = gameLinkInput.value;
+  navigator.clipboard.writeText(gameLink);
+  showAlert("Link Copied", 1000);
+}
 function shareWhatsapp(){
   var message = encodeURIComponent(`I challenge you to a match in Wordle!\nLink: https://wordle-multiplayer.netlify.app/public/Wordle5?room=${room}`);
   var whatsappURL = `https://wa.me/?text=${message}`;
   window.open(whatsappURL, '_blank');
+}
+function shareInstagram(){
+  var message = encodeURIComponent(`I challenge you to a match in Wordle!\nLink: https://wordle-multiplayer.netlify.app/public/Wordle5?room=${room}`);
+  var instagramURL = "https://www.instagram.com/stories?text="+message;
+  window.open(instagramURL, '_blank');
 }
 function startGame() {
   document.addEventListener("keydown", handleKeyDown);
