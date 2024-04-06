@@ -15302,7 +15302,7 @@ function closeRestart(){
   document.querySelector(".restart-container").classList.add("hide");
 }
 function shareWhatsapp(){
-  var message = encodeURIComponent("I challenge you to a match in Wordle!\nLink: https://wordle-multiplayer.netlify.app/public/Wordle6/ \nRoom Code: " + room);
+  var message = encodeURIComponent(`I challenge you to a match in Wordle!\nLink: https://wordle-multiplayer.netlify.app/public/Wordle5?room=${room}`);
   var whatsappURL = `https://wa.me/?text=${message}`;
   window.open(whatsappURL, '_blank');
 }
