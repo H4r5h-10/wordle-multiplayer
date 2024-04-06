@@ -297,7 +297,10 @@ body{
     text-align: center  ;
 }
 .option-btn-container{
-    text-align: center  ;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
 }
 @keyframes shake{
     10%{
