@@ -13068,6 +13068,7 @@ function startGame() {
 function stopGame() {
   document.removeEventListener("keydown", handleKeyDown);
   document.removeEventListener("click", handleClick);
+  joinRoomCode = null;
 }
 
 function handleClick(event) {
