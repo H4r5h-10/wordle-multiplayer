@@ -15242,7 +15242,8 @@ const guessGridYou = document.querySelector(".grid.you");
 const guessGridOpp = document.querySelector(".grid.opponent");
 const keyboard = document.querySelector(".keyboard");
 const socket = io(SERVER_ADDRESS, {headers: { "user-agent": "Google Chrome"}})
-
+const url = window.location.href.split("=");
+const joinRoomCode = url?url[1]:null;
 
 var roomBtn = document.querySelector(".play");
 var joinBtn = document.querySelector(".join");
@@ -15262,6 +15263,10 @@ whatsappBtn.addEventListener("click", shareWhatsapp);
 
 document.querySelector(".room-code-join").addEventListener("keydown", handleJoinRoomEnter);
 document.querySelector(".room-code-create").addEventListener("keydown", handleCreateRoomEnter);
+
+if(joinRoomCode){
+  socket.emit("join-room-five",joinRoomCode.toLowerCase());
+}
 
 function handleJoinRoom(){
   document.querySelector(".option-btn-container").classList.add("hide");

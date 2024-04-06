@@ -12983,6 +12983,7 @@ const guessGridOpp = document.querySelector(".grid.opponent");
 const keyboard = document.querySelector(".keyboard");
 const socket = io(SERVER_ADDRESS, {headers: { "user-agent": "Google Chrome"}})
 
+
 var roomBtn = document.querySelector(".play");
 var joinBtn = document.querySelector(".join");
 var createBtn = document.querySelector(".create");
@@ -13001,6 +13002,8 @@ whatsappBtn.addEventListener("click", shareWhatsapp);
 
 document.querySelector(".room-code-join").addEventListener("keydown", handleJoinRoomEnter);
 document.querySelector(".room-code-create").addEventListener("keydown", handleCreateRoomEnter);
+
+
 
 function handleJoinRoom(){
   document.querySelector(".option-btn-container").classList.add("hide");
@@ -13036,16 +13039,10 @@ function closeRestart(){
   document.querySelector(".restart-container").classList.add("hide");
 }
 function shareWhatsapp(){
-  var message = encodeURIComponent("I challenge you to a match in Wordle!\nLink: https://wordle-multiplayer.netlify.app/public/Wordle5/ \nRoom Code: " + room);
+  var message = encodeURIComponent(`I challenge you to a match in Wordle!\nLink: https://wordle-multiplayer.netlify.app/public/Wordle5?room=${room}`);
   var whatsappURL = `https://wa.me/?text=${message}`;
   window.open(whatsappURL, '_blank');
 }
-// function shareEmail(){
-//   var subject = 'Join my multiplayer game!';
-//   var body = 'Hey there,\nI challenge you to a match in Wordle!\nLink: https://wordle-multiplayer.netlify.app/public/Wordle5/ \nRoom Code: ' + room;
-//   var mailtoURL = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-//   window.location.href = mailtoURL;
-// }
 function startGame() {
   document.addEventListener("keydown", handleKeyDown);
   document.addEventListener("click", handleClick);
