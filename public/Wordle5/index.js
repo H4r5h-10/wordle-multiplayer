@@ -12983,7 +12983,7 @@ const guessGridOpp = document.querySelector(".grid.opponent");
 const keyboard = document.querySelector(".keyboard");
 const socket = io(SERVER_ADDRESS, {headers: { "user-agent": "Google Chrome"}})
 const url = window.location.href.split("=");
-const joinRoomCode = url?url[1]:null;
+var joinRoomCode = url?url[1]:null;
 
 var roomBtn = document.querySelector(".play");
 var joinBtn = document.querySelector(".join");
